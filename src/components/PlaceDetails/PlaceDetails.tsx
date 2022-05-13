@@ -52,7 +52,7 @@ const PlaceDetails = ({ place, selected, refProp }: IProps) => {
             image={
               photo
                 ? photo.images.large.url
-                : "https://media.timeout.com/images/105825245/750/422/image.jpg"
+                : "https://www.salonlfc.com/wp-content/uploads/2018/01/image-not-found-scaled.png"
             }
             title={name}
           />
@@ -61,7 +61,7 @@ const PlaceDetails = ({ place, selected, refProp }: IProps) => {
               {name}
             </Typography>
             <Box display="flex" justifyContent="space-between">
-              <Rating value={Number(rating ?? 0)} readOnly />
+              <Rating value={Number(rating ?? 0)} precision={0.5} readOnly />
               <Typography gutterBottom variant="subtitle1">
                 out of {num_reviews} reviews
               </Typography>

@@ -43,11 +43,16 @@ const Map = ({
             src={
               place.photo
                 ? place.photo.images.large.url
-                : "https://media.timeout.com/images/105825245/750/422/image.jpg"
+                : "https://www.salonlfc.com/wp-content/uploads/2018/01/image-not-found-scaled.png"
             }
             alt={place.name}
           />
-          <Rating size="small" value={Number(place.rating ?? 0)} readOnly />
+          <Rating
+            size="small"
+            value={Number(place.rating ?? 0)}
+            precision={0.5}
+            readOnly
+          />
         </Paper>
       )}
     </Box>
