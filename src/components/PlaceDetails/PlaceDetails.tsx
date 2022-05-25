@@ -40,6 +40,9 @@ const PlaceDetails = ({ place, selected, refProp }: IProps) => {
     num_reviews,
   } = place;
 
+  const defaultImage: string = process.env
+    .REACT_APP_DEFAULT_IMAGE_URL as string;
+
   if (selected) {
     refProp?.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   }
@@ -49,11 +52,7 @@ const PlaceDetails = ({ place, selected, refProp }: IProps) => {
         <Card elevation={6}>
           <CardMedia
             style={{ height: 350 }}
-            image={
-              photo
-                ? photo.images.large.url
-                : "https://www.salonlfc.com/wp-content/uploads/2018/01/image-not-found-scaled.png"
-            }
+            image={photo ? photo.images.large.url : defaultImage}
             title={name}
           />
           <CardContent>

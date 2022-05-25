@@ -18,6 +18,9 @@ interface IMarker extends Omit<Place, "longitude" | "latitude"> {
   lat: number;
 }
 
+const mapAPI: string = process.env.REACT_APP_GOOGLE_MAPS_API_KEY as string;
+const defaultImage: string = process.env.REACT_APP_DEFAULT_IMAGE_URL as string;
+
 const Map = ({
   setCoordinates,
   setBounds,
@@ -40,11 +43,7 @@ const Map = ({
           </Typography>
           <img
             className={classes.pointer}
-            src={
-              place.photo
-                ? place.photo.images.large.url
-                : "https://www.salonlfc.com/wp-content/uploads/2018/01/image-not-found-scaled.png"
-            }
+            src={place.photo ? place.photo.images.large.url : defaultImage}
             alt={place.name}
           />
           <Rating
@@ -62,7 +61,7 @@ const Map = ({
     <Box className={classes.mapContainer}>
       {coordinates && (
         <GoogleMapReact
-          bootstrapURLKeys={{ key: "AIzaSyAdio8MeFCaEl0rbZcoA5LtJsor47K9umk" }}
+          bootstrapURLKeys={{ key: mapAPI }}
           defaultCenter={defaultCenter}
           center={coordinates}
           defaultZoom={14}

@@ -1,8 +1,9 @@
 import { AppBar, Box, InputBase, Toolbar, Typography } from "@mui/material";
-// import { Autocomplete } from "@react-google-maps/api";
+import { Autocomplete } from "@react-google-maps/api";
 import SearchIcon from "@material-ui/icons/Search";
 import useStyles from "./styles";
 import { ICoordinate } from "../../App";
+import { useState } from "react";
 
 interface IProps {
   setCoordinates: React.Dispatch<React.SetStateAction<ICoordinate | null>>;
@@ -10,14 +11,14 @@ interface IProps {
 
 const Header = ({ setCoordinates }: IProps) => {
   const classes = useStyles();
-  // const [autocomplete, setAutocomplete] = useState();
+  const [autocomplete, setAutocomplete] = useState<any | null>(null);
 
-  // const onLoad = (AutoC: any) => setAutocomplete(AutoC);
-  // const onPlaceChanged = () => {
-  //   const lat = autocomplete.getPlace().geometry.location.lat();
-  //   const lng = autocomplete.getPlace().geometry.location.lng();
-  //   setCoordinates({ lat, lng });
-  // };
+  const onLoad = (AutoComplete: any) => setAutocomplete(AutoComplete);
+  const onPlaceChanged = () => {
+    const lat = autocomplete.getPlace().geometry.location.lat();
+    const lng = autocomplete.getPlace().geometry.location.lng();
+    setCoordinates({ lat, lng });
+  };
   return (
     <>
       <AppBar position="static">
@@ -26,20 +27,20 @@ const Header = ({ setCoordinates }: IProps) => {
             Header
           </Typography>
           <Box display="flex">
-            {/* <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}> */}
-            <Box className={classes.search}>
-              <Box className={classes.searchIcon}>
-                <SearchIcon />
+            <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
+              <Box className={classes.search}>
+                <Box className={classes.searchIcon}>
+                  <SearchIcon />
+                </Box>
+                <InputBase
+                  placeholder="Search..."
+                  classes={{
+                    root: classes.inputRoot,
+                    input: classes.inputInput,
+                  }}
+                />
               </Box>
-              <InputBase
-                placeholder="Search..."
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput,
-                }}
-              />
-            </Box>
-            {/* </Autocomplete> */}
+            </Autocomplete>
           </Box>
         </Toolbar>
       </AppBar>

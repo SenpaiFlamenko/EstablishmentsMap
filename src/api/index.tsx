@@ -1,6 +1,8 @@
 import axios from "axios";
 import { ICoordinate, SelectablePlaces } from "../App";
 
+const travelAPI: string = process.env.REACT_APP_TRAVEL_API_KEY as string;
+
 export const getPlacesData = async (
   type: SelectablePlaces,
   ne: ICoordinate,
@@ -20,8 +22,7 @@ export const getPlacesData = async (
         },
         headers: {
           "X-RapidAPI-Host": "travel-advisor.p.rapidapi.com",
-          "X-RapidAPI-Key":
-            "b3dea6db2emsh9008a08663d880dp1836b5jsna237c6442237",
+          "X-RapidAPI-Key": travelAPI,
         },
       }
     );
