@@ -4,6 +4,7 @@ import GoogleMapReact from "google-map-react";
 import { ICoordinate, IBounds } from "../../App";
 import { Place } from "../../shared/types/place-types";
 import useStyles from "./styles";
+import mapStyles from "./mapStyles";
 
 interface IProps {
   setCoordinates: React.Dispatch<React.SetStateAction<ICoordinate | null>>;
@@ -38,14 +39,16 @@ const Map = ({
         <LocationOnOutlinedIcon color="primary" fontSize="large" />
       ) : (
         <Paper elevation={3} className={classes.paper}>
+          <Box>
+            <img
+              className={classes.pointer}
+              src={place.photo ? place.photo.images.large.url : defaultImage}
+              alt={place.name}
+            />
+          </Box>
           <Typography variant="subtitle2" gutterBottom>
             {place.name}
           </Typography>
-          <img
-            className={classes.pointer}
-            src={place.photo ? place.photo.images.large.url : defaultImage}
-            alt={place.name}
-          />
           <Rating
             size="small"
             value={Number(place.rating ?? 0)}
@@ -57,6 +60,29 @@ const Map = ({
     </Box>
   );
 
+  const apiIsLoaded = (map: any, maps: any) => {
+    if (map) {
+      const directionsService = new google.maps.DirectionsService();
+      const directionsRenderer = new google.maps.DirectionsRenderer({
+        preserveViewport: true,
+        suppressMarkers: true,
+      });
+      directionsRenderer.setMap(map);
+      directionsService.route(
+        {
+          origin: defaultCenter,
+          destination: { lat: 48.63091363023963, lng: 22.322595240464853 },
+          travelMode: google.maps.TravelMode.DRIVING,
+        },
+        (result, status) => {
+          if (status === google.maps.DirectionsStatus.OK && result) {
+            // directionsRenderer.setDirections(result);
+          }
+        }
+      );
+    }
+  };
+
   return (
     <Box className={classes.mapContainer}>
       {coordinates && (
@@ -66,6 +92,9 @@ const Map = ({
           center={coordinates}
           defaultZoom={14}
           margin={[50, 50, 50, 50]}
+          options={{ styles: mapStyles }}
+          yesIWantToUseGoogleMapApiInternals
+          onGoogleApiLoaded={({ map, maps }) => apiIsLoaded(map, maps)}
           onChange={(e) => {
             setCoordinates({ lat: e.center.lat, lng: e.center.lng });
             setBounds({

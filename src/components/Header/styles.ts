@@ -1,11 +1,9 @@
 import { alpha, makeStyles } from "@material-ui/core/styles";
 
 export default makeStyles((theme) => ({
-  title: {
-    display: "none",
-    [theme.breakpoints.up("sm")]: {
-      display: "block",
-    },
+  logo: {
+    display: "fit-content",
+    fill: "white",
   },
   search: {
     position: "relative",
@@ -38,6 +36,10 @@ export default makeStyles((theme) => ({
     transition: theme.transitions.create("width"),
     width: "100%",
     [theme.breakpoints.up("md")]: { width: "20ch" },
+  },
+  weather: {
+    display: "inline-flex",
+    alignItems: "center",
   },
   toolbar: {
     display: "flex",

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { ICoordinate, SelectablePlaces } from "../App";
 
-const travelAPI: string = process.env.REACT_APP_TRAVEL_API_KEY as string;
+const rapidAPI: string = process.env.REACT_APP_RAPID_API_KEY as string;
 
 export const getPlacesData = async (
   type: SelectablePlaces,
@@ -22,7 +22,27 @@ export const getPlacesData = async (
         },
         headers: {
           "X-RapidAPI-Host": "travel-advisor.p.rapidapi.com",
-          "X-RapidAPI-Key": travelAPI,
+          "X-RapidAPI-Key": rapidAPI,
+        },
+      }
+    );
+    return data;
+  } catch (error) {}
+};
+
+export const getWeatherData = async (lat: number, lng: number) => {
+  try {
+    const { data } = await axios.get(
+      "https://community-open-weather-map.p.rapidapi.com/weather",
+      {
+        params: {
+          lat: lat,
+          lon: lng,
+          units: "metric",
+        },
+        headers: {
+          "X-RapidAPI-Host": "community-open-weather-map.p.rapidapi.com",
+          "X-RapidAPI-Key": rapidAPI,
         },
       }
     );

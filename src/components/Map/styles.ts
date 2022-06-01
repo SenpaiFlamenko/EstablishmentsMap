@@ -6,7 +6,7 @@ export default makeStyles(() => ({
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
-    width: "8rem",
+    width: "fit-content",
   },
   mapContainer: {
     height: "100%",
@@ -20,5 +20,8 @@ export default makeStyles(() => ({
   },
   pointer: {
     cursor: "pointer",
+    width: "6vw",
+    height: "9vh",
+    objectFit: "cover",
   },
 }));

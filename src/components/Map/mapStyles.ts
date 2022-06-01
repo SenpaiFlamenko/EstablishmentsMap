@@ -1,55 +1,34 @@
 export default [
   {
     featureType: "all",
-    elementType: "all",
+    elementType: "labels.text",
     stylers: [
       {
-        saturation: "32",
-      },
-      {
-        lightness: "-3",
-      },
-      {
-        visibility: "on",
-      },
-      {
-        weight: "1.18",
+        color: "#878787",
       },
     ],
   },
   {
-    featureType: "administrative",
-    elementType: "labels",
+    featureType: "all",
+    elementType: "labels.text.stroke",
     stylers: [
       {
-        visibility: "on",
+        visibility: "off",
       },
     ],
   },
   {
     featureType: "landscape",
-    elementType: "labels",
-    stylers: [
-      {
-        visibility: "off",
-      },
-    ],
-  },
-  {
-    featureType: "landscape.man_made",
     elementType: "all",
     stylers: [
       {
-        saturation: "-70",
-      },
-      {
-        lightness: "14",
+        color: "#f9f5ed",
       },
     ],
   },
   {
     featureType: "poi",
-    elementType: "labels",
+    elementType: "all",
     stylers: [
       {
         visibility: "off",
@@ -57,8 +36,8 @@ export default [
     ],
   },
   {
-    featureType: "road",
-    elementType: "labels",
+    featureType: "poi.government",
+    elementType: "all",
     stylers: [
       {
         visibility: "off",
@@ -66,11 +45,47 @@ export default [
     ],
   },
   {
-    featureType: "transit",
-    elementType: "labels",
+    featureType: "poi.park",
+    elementType: "all",
+    stylers: [
+      {
+        visibility: "simplified",
+      },
+    ],
+  },
+  {
+    featureType: "poi.place_of_worship",
+    elementType: "all",
     stylers: [
       {
         visibility: "off",
+      },
+    ],
+  },
+  {
+    featureType: "poi.sports_complex",
+    elementType: "all",
+    stylers: [
+      {
+        visibility: "simplified",
+      },
+    ],
+  },
+  {
+    featureType: "road.highway",
+    elementType: "all",
+    stylers: [
+      {
+        color: "#f5f5f5",
+      },
+    ],
+  },
+  {
+    featureType: "road.highway",
+    elementType: "geometry.stroke",
+    stylers: [
+      {
+        color: "#c9c9c9",
       },
     ],
   },
@@ -79,22 +94,7 @@ export default [
     elementType: "all",
     stylers: [
       {
-        saturation: "100",
-      },
-      {
-        lightness: "-14",
-      },
-    ],
-  },
-  {
-    featureType: "water",
-    elementType: "labels",
-    stylers: [
-      {
-        visibility: "off",
-      },
-      {
-        lightness: "12",
+        color: "#aee0f4",
       },
     ],
   },
