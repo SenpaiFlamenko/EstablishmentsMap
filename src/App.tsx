@@ -5,6 +5,7 @@ import List from "./components/List/List";
 import Map from "./components/Map/Map";
 import { getPlacesData, getWeatherData } from "./api";
 import { IWeather } from "./shared/types/weather-types";
+import Menu from "./components/Menu/Menu";
 
 export interface ICoordinate {
   lat: number;
@@ -63,9 +64,18 @@ const App = () => {
     <>
       <CssBaseline />
       <Header setCoordinates={setCoordinates} weatherData={weatherData} />
-      <Grid container spacing={2} style={{ width: "100%", flexGrow: "1" }}>
-        <Grid item xs={12} md={4}>
-          <List
+      <Grid container spacing={0} style={{ width: "100%", flexGrow: "1" }}>
+        <Grid item xs={12} md={0.4}>
+          {/* <List
+            places={filteredPlaces.length ? filteredPlaces : places}
+            childClicked={childClicked}
+            isLoading={isLoading}
+            type={type}
+            setType={setType}
+            rating={rating}
+            setRating={setRating}
+          /> */}
+          <Menu
             places={filteredPlaces.length ? filteredPlaces : places}
             childClicked={childClicked}
             isLoading={isLoading}
@@ -75,7 +85,7 @@ const App = () => {
             setRating={setRating}
           />
         </Grid>
-        <Grid item xs={12} md={8}>
+        <Grid item xs={12} md={11.6}>
           <Map
             setCoordinates={setCoordinates}
             setBounds={setBounds}

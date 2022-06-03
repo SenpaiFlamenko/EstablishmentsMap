@@ -1,4 +1,4 @@
-import LocationOnOutlinedIcon from "@material-ui/icons/LocationOnOutlined";
+import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import { Box, Paper, useMediaQuery, Typography, Rating } from "@mui/material";
 import GoogleMapReact from "google-map-react";
 import { ICoordinate, IBounds } from "../../App";
@@ -61,26 +61,26 @@ const Map = ({
   );
 
   const apiIsLoaded = (map: any, maps: any) => {
-    if (map) {
-      const directionsService = new google.maps.DirectionsService();
-      const directionsRenderer = new google.maps.DirectionsRenderer({
-        preserveViewport: true,
-        suppressMarkers: true,
-      });
-      directionsRenderer.setMap(map);
-      directionsService.route(
-        {
-          origin: defaultCenter,
-          destination: { lat: 48.63091363023963, lng: 22.322595240464853 },
-          travelMode: google.maps.TravelMode.DRIVING,
-        },
-        (result, status) => {
-          if (status === google.maps.DirectionsStatus.OK && result) {
-            // directionsRenderer.setDirections(result);
-          }
-        }
-      );
-    }
+    // if (map) {
+    //   const directionsService = new google.maps.DirectionsService();
+    //   const directionsRenderer = new google.maps.DirectionsRenderer({
+    //     preserveViewport: true,
+    //     suppressMarkers: true,
+    //   });
+    //   directionsRenderer.setMap(map);
+    //   directionsService.route(
+    //     {
+    //       origin: defaultCenter,
+    //       destination: { lat: 48.63091363023963, lng: 22.322595240464853 },
+    //       travelMode: google.maps.TravelMode.DRIVING,
+    //     },
+    //     (result, status) => {
+    //       if (status === google.maps.DirectionsStatus.OK && result) {
+    //         // directionsRenderer.setDirections(result);
+    //       }
+    //     }
+    //   );
+    // }
   };
 
   return (
@@ -91,7 +91,6 @@ const Map = ({
           defaultCenter={defaultCenter}
           center={coordinates}
           defaultZoom={14}
-          margin={[50, 50, 50, 50]}
           options={{ styles: mapStyles }}
           yesIWantToUseGoogleMapApiInternals
           onGoogleApiLoaded={({ map, maps }) => apiIsLoaded(map, maps)}

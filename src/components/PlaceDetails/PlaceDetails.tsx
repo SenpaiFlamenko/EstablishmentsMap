@@ -10,8 +10,8 @@ import {
   Rating,
 } from "@mui/material";
 
-import LocationOnIcon from "@material-ui/icons/LocationOn";
-import PhoneIcon from "@material-ui/icons/Phone";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import PhoneIcon from "@mui/icons-material/Phone";
 
 import useStyles from "./styles";
 
