@@ -2,7 +2,7 @@ import { Button, ButtonGroup, Drawer, Paper } from "@mui/material";
 import { Hotel, Restaurant, Attractions, Room, Map } from "@mui/icons-material";
 import useStyles from "./styles";
 import React, { useState } from "react";
-import List from "../List/List";
+import DrawerContent from "../DrawerContent/DrawerContent";
 
 const Menu = (props: any) => {
   const classes = useStyles();
@@ -43,29 +43,36 @@ const Menu = (props: any) => {
           className={classes.buttonGroup}
         >
           <Button
-            sx={{ padding: `${bTopBotPadding}vh 0 ${bTopBotPadding}vh 0` }}
-            onClick={toggleDrawer("left", true)}
+            sx={{ padding: `${bTopBotPadding}vh` }}
+            onClick={(e) => {
+              toggleDrawer("left", true)(e);
+              props.setType("hotels");
+            }}
           >
             <Hotel sx={{ fontSize: iconSize }} />
           </Button>
           <Button
-            sx={{ padding: `${bTopBotPadding}vh 0 ${bTopBotPadding}vh 0` }}
+            sx={{ padding: `${bTopBotPadding}vh` }}
+            onClick={(e) => {
+              toggleDrawer("left", true)(e);
+              props.setType("restaurants");
+            }}
           >
             <Restaurant sx={{ fontSize: iconSize }} />
           </Button>
           <Button
-            sx={{ padding: `${bTopBotPadding}vh 0 ${bTopBotPadding}vh 0` }}
+            sx={{ padding: `${bTopBotPadding}vh` }}
+            onClick={(e) => {
+              toggleDrawer("left", true)(e);
+              props.setType("attractions");
+            }}
           >
             <Attractions sx={{ fontSize: iconSize }} />
           </Button>
-          <Button
-            sx={{ padding: `${bTopBotPadding}vh 0 ${bTopBotPadding}vh 0` }}
-          >
+          <Button sx={{ padding: `${bTopBotPadding}vh` }}>
             <Room sx={{ fontSize: iconSize }} />
           </Button>
-          <Button
-            sx={{ padding: `${bTopBotPadding}vh 0 ${bTopBotPadding}vh 0` }}
-          >
+          <Button sx={{ padding: `${bTopBotPadding}vh` }}>
             <Map sx={{ fontSize: iconSize }} />
           </Button>
         </ButtonGroup>
@@ -78,7 +85,7 @@ const Menu = (props: any) => {
           onClose={toggleDrawer("left", false)}
           sx={{ backgroundColor: "black" }}
         >
-          <List {...props} />
+          <DrawerContent {...props} />
         </Drawer>
       </React.Fragment>
     </>

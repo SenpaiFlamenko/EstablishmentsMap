@@ -1,10 +1,10 @@
-import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
-import { Box, Paper, useMediaQuery, Typography, Rating } from "@mui/material";
+import { Box } from "@mui/material";
 import GoogleMapReact from "google-map-react";
 import { ICoordinate, IBounds } from "../../App";
 import { Place } from "../../shared/types/place-types";
 import useStyles from "./styles";
 import mapStyles from "./mapStyles";
+import Marker from "./Marker";
 
 interface IProps {
   setCoordinates: React.Dispatch<React.SetStateAction<ICoordinate | null>>;
@@ -14,13 +14,7 @@ interface IProps {
   places: Place[];
 }
 
-interface IMarker extends Omit<Place, "longitude" | "latitude"> {
-  lng: number;
-  lat: number;
-}
-
 const mapAPI: string = process.env.REACT_APP_GOOGLE_MAPS_API_KEY as string;
-const defaultImage: string = process.env.REACT_APP_DEFAULT_IMAGE_URL as string;
 
 const Map = ({
   setCoordinates,
@@ -30,35 +24,7 @@ const Map = ({
   places,
 }: IProps) => {
   const classes = useStyles();
-  const isDesktop = useMediaQuery("(min-width:600px");
   const defaultCenter = { lat: 48.621025, lng: 22.288229 };
-
-  const Marker = (place: IMarker) => (
-    <Box className={classes.markerContainer}>
-      {!isDesktop ? (
-        <LocationOnOutlinedIcon color="primary" fontSize="large" />
-      ) : (
-        <Paper elevation={3} className={classes.paper}>
-          <Box>
-            <img
-              className={classes.pointer}
-              src={place.photo ? place.photo.images.large.url : defaultImage}
-              alt={place.name}
-            />
-          </Box>
-          <Typography variant="subtitle2" gutterBottom>
-            {place.name}
-          </Typography>
-          <Rating
-            size="small"
-            value={Number(place.rating ?? 0)}
-            precision={0.5}
-            readOnly
-          />
-        </Paper>
-      )}
-    </Box>
-  );
 
   const apiIsLoaded = (map: any, maps: any) => {
     // if (map) {
@@ -76,7 +42,7 @@ const Map = ({
     //     },
     //     (result, status) => {
     //       if (status === google.maps.DirectionsStatus.OK && result) {
-    //         // directionsRenderer.setDirections(result);
+    //         directionsRenderer.setDirections(result);
     //       }
     //     }
     //   );

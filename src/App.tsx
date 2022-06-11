@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { CssBaseline, Grid } from "@mui/material";
 import Header from "./components/Header/Header";
-import List from "./components/List/List";
 import Map from "./components/Map/Map";
 import { getPlacesData, getWeatherData } from "./api";
 import { IWeather } from "./shared/types/weather-types";
@@ -17,7 +16,7 @@ export interface IBounds {
   sw: ICoordinate;
 }
 
-export type SelectablePlaces = "restaurants" | "hotels" | "attractions";
+export type SelectablePlaces = "hotels" | "restaurants" | "attractions";
 export type SelectableRating = 0 | 3.0 | 4.0 | 4.5;
 
 const App = () => {
@@ -30,7 +29,7 @@ const App = () => {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const [type, setType] = useState<SelectablePlaces>("restaurants");
+  const [type, setType] = useState<SelectablePlaces>("hotels");
   const [rating, setRating] = useState<SelectableRating>(3.0);
 
   useEffect(() => {
@@ -66,15 +65,6 @@ const App = () => {
       <Header setCoordinates={setCoordinates} weatherData={weatherData} />
       <Grid container spacing={0} style={{ width: "100%", flexGrow: "1" }}>
         <Grid item xs={12} md={0.4}>
-          {/* <List
-            places={filteredPlaces.length ? filteredPlaces : places}
-            childClicked={childClicked}
-            isLoading={isLoading}
-            type={type}
-            setType={setType}
-            rating={rating}
-            setRating={setRating}
-          /> */}
           <Menu
             places={filteredPlaces.length ? filteredPlaces : places}
             childClicked={childClicked}

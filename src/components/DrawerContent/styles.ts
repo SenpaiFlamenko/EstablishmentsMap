@@ -11,6 +11,7 @@ export default makeStyles((theme) => ({
   },
   loading: {
     height: "600px",
+    width: "35vw",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -18,14 +19,12 @@ export default makeStyles((theme) => ({
   container: {
     paddingTop: "64px",
     paddingLeft: "3.3333vw",
-    maxWidth: "40vw",
-    overflowY: "auto",
+    maxWidth: "35vw",
+    overflow: "hidden",
   },
-  marginBottom: {
-    marginBottom: "30px",
-  },
-  list: {
-    height: "75vh",
+  content: {
+    height: "81vh",
     overflow: "auto",
+    padding: "0 15px",
   },
 }));
