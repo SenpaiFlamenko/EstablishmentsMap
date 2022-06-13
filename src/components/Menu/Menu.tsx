@@ -29,7 +29,6 @@ const Menu = (props: any) => {
           zIndex: (theme) => theme.zIndex.drawer + 1,
         }}
         variant="outlined"
-        elevation={1}
         square
       >
         <ButtonGroup
