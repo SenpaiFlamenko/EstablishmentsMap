@@ -27,4 +27,7 @@ export default makeStyles((theme) => ({
     overflow: "auto",
     padding: "0 15px",
   },
+  topBlock: {
+    padding: "1rem",
+  },
 }));

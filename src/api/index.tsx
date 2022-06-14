@@ -4,15 +4,17 @@ import { ICoordinate, SelectablePlaces } from "../App";
 const rapidAPI: string = process.env.REACT_APP_RAPID_API_KEY as string;
 
 export const getPlacesData = async (
-  type: SelectablePlaces,
   ne: ICoordinate,
-  sw: ICoordinate
+  sw: ICoordinate,
+  type?: SelectablePlaces
 ) => {
   try {
     const {
       data: { data },
     } = await axios.get(
-      `https://travel-advisor.p.rapidapi.com/${type}/list-in-boundary`,
+      `https://travel-advisor.p.rapidapi.com/${
+        type || "hotels"
+      }/list-in-boundary`,
       {
         params: {
           bl_latitude: sw.lat,

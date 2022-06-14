@@ -29,8 +29,8 @@ const App = () => {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const [type, setType] = useState<SelectablePlaces>("hotels");
-  const [rating, setRating] = useState<SelectableRating>(3.0);
+  const [type, setType] = useState<SelectablePlaces>();
+  const [rating, setRating] = useState<SelectableRating>(0);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -44,15 +44,19 @@ const App = () => {
     setIsLoading(true);
     if (!bounds) return;
     const { ne, sw } = bounds;
-    coordinates &&
-      getWeatherData(coordinates.lat, coordinates.lng).then((data) => {
-        setWeatherData(data);
-      });
-    getPlacesData(type, ne, sw).then((data) => {
+
+    getPlacesData(ne, sw, type).then((data) => {
       setPlaces(data);
       setIsLoading(false);
     });
   }, [bounds, type]);
+
+  useEffect(() => {
+    coordinates &&
+      getWeatherData(coordinates.lat, coordinates.lng).then((data) => {
+        setWeatherData(data);
+      });
+  }, [coordinates]);
 
   useEffect(() => {
     const filteredPlaces = places.filter((place) => place.rating >= rating);

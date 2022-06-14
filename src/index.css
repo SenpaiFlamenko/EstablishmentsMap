@@ -17,3 +17,7 @@ code {
   flex-direction: column;
   min-height: 100vh;
 }
+
+.pac-container {
+  z-index: 2000;
+}

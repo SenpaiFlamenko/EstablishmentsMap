@@ -24,9 +24,10 @@ const Header = ({ setCoordinates, weatherData }: IProps) => {
 
   const onLoad = (AutoComplete: any) => setAutocomplete(AutoComplete);
   const onPlaceChanged = () => {
-    const lat = autocomplete.getPlace().geometry.location.lat();
-    const lng = autocomplete.getPlace().geometry.location.lng();
-    setCoordinates({ lat, lng });
+    setCoordinates({
+      lat: autocomplete.getPlace().geometry.location.lat(),
+      lng: autocomplete.getPlace().geometry.location.lng(),
+    });
   };
 
   return (
@@ -45,7 +46,6 @@ const Header = ({ setCoordinates, weatherData }: IProps) => {
                 <SearchIcon />
               </Box>
               <InputBase
-                placeholder="Search..."
                 classes={{
                   root: classes.inputRoot,
                   input: classes.inputInput,

@@ -54,6 +54,7 @@ const PlaceDetails = ({ place, selected, refProp }: IProps) => {
             style={{ height: 350 }}
             image={photo ? photo.images.large.url : defaultImage}
             title={name}
+            component="img"
           />
           <CardContent>
             <Typography gutterBottom variant="h5">
@@ -62,11 +63,11 @@ const PlaceDetails = ({ place, selected, refProp }: IProps) => {
             <Box display="flex" justifyContent="space-between">
               <Rating value={Number(rating ?? 0)} precision={0.5} readOnly />
               <Typography gutterBottom variant="subtitle1">
-                out of {num_reviews} reviews
+                based on {num_reviews} reviews
               </Typography>
             </Box>
             <Box display="flex" justifyContent="space-between">
-              <Typography variant="subtitle1">Price</Typography>
+              <Typography variant="subtitle1">Prices range</Typography>
               <Typography gutterBottom variant="subtitle1">
                 {price_level}
               </Typography>

@@ -3,24 +3,30 @@ import { Hotel, Restaurant, Attractions, Room, Map } from "@mui/icons-material";
 import useStyles from "./styles";
 import React, { useState } from "react";
 import DrawerContent from "../DrawerContent/DrawerContent";
+import { SelectablePlaces } from "../../App";
+
+export type SelectableRoutes = "content" | "pre-made" | "build";
 
 const Menu = (props: any) => {
   const classes = useStyles();
   const [drawerState, setDrawerState] = useState<boolean>(false);
+  const [directionsType, setDirectionsType] = useState<SelectableRoutes>();
   const iconSize = 38;
   const bTopBotPadding = 1.5;
-  const toggleDrawer =
-    (anchor: "left", open: boolean) =>
-    (event: React.KeyboardEvent | React.MouseEvent) => {
-      if (
-        event.type === "keydown" &&
-        ((event as React.KeyboardEvent).key === "Tab" ||
-          (event as React.KeyboardEvent).key === "Shift")
-      ) {
+  const handleContentUpdate =
+    (type: SelectablePlaces) =>
+    (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      console.log("before if");
+      if (props.type === type) {
+        setDrawerState(false);
+        props.setType(undefined);
         return;
       }
-      setDrawerState(!drawerState);
+      setDrawerState(true);
+      props.setType(type);
+      setDirectionsType("content");
     };
+
   return (
     <>
       <Paper
@@ -43,35 +49,50 @@ const Menu = (props: any) => {
         >
           <Button
             sx={{ padding: `${bTopBotPadding}vh` }}
-            onClick={(e) => {
-              toggleDrawer("left", true)(e);
-              props.setType("hotels");
-            }}
+            onClick={handleContentUpdate("hotels")}
           >
             <Hotel sx={{ fontSize: iconSize }} />
           </Button>
           <Button
             sx={{ padding: `${bTopBotPadding}vh` }}
-            onClick={(e) => {
-              toggleDrawer("left", true)(e);
-              props.setType("restaurants");
-            }}
+            onClick={handleContentUpdate("restaurants")}
           >
             <Restaurant sx={{ fontSize: iconSize }} />
           </Button>
           <Button
             sx={{ padding: `${bTopBotPadding}vh` }}
-            onClick={(e) => {
-              toggleDrawer("left", true)(e);
-              props.setType("attractions");
-            }}
+            onClick={handleContentUpdate("attractions")}
           >
             <Attractions sx={{ fontSize: iconSize }} />
           </Button>
-          <Button sx={{ padding: `${bTopBotPadding}vh` }}>
+          <Button
+            sx={{ padding: `${bTopBotPadding}vh` }}
+            onClick={() => {
+              setDirectionsType("pre-made");
+              props.setType(undefined);
+              if (directionsType === "pre-made") {
+                setDrawerState(false);
+                setDirectionsType(undefined);
+                return;
+              }
+              setDrawerState(true);
+            }}
+          >
             <Room sx={{ fontSize: iconSize }} />
           </Button>
-          <Button sx={{ padding: `${bTopBotPadding}vh` }}>
+          <Button
+            sx={{ padding: `${bTopBotPadding}vh` }}
+            onClick={() => {
+              setDirectionsType("build");
+              props.setType(undefined);
+              if (directionsType === "build") {
+                setDrawerState(false);
+                setDirectionsType(undefined);
+                return;
+              }
+              setDrawerState(true);
+            }}
+          >
             <Map sx={{ fontSize: iconSize }} />
           </Button>
         </ButtonGroup>
@@ -81,10 +102,10 @@ const Menu = (props: any) => {
           anchor="left"
           variant="persistent"
           open={drawerState}
-          onClose={toggleDrawer("left", false)}
+          onClose={() => setDrawerState(false)}
           sx={{ backgroundColor: "black" }}
         >
-          <DrawerContent {...props} />
+          <DrawerContent {...props} contentType={directionsType} />
         </Drawer>
       </React.Fragment>
     </>
