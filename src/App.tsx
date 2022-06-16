@@ -5,6 +5,7 @@ import Map from "./components/Map/Map";
 import { getPlacesData, getWeatherData } from "./api";
 import { IWeather } from "./shared/types/weather-types";
 import Menu from "./components/Menu/Menu";
+import { AppStoreProvider } from "./store";
 
 export interface ICoordinate {
   lat: number;
@@ -64,7 +65,7 @@ const App = () => {
   }, [rating, places]);
 
   return (
-    <>
+    <AppStoreProvider>
       <CssBaseline />
       <Header setCoordinates={setCoordinates} weatherData={weatherData} />
       <Grid container spacing={0} style={{ width: "100%", flexGrow: "1" }}>
@@ -89,7 +90,7 @@ const App = () => {
           />
         </Grid>
       </Grid>
-    </>
+    </AppStoreProvider>
   );
 };
 

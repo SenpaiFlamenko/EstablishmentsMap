@@ -1,9 +1,17 @@
-import { Box, Paper, Typography, Rating, useMediaQuery } from "@mui/material";
+import {
+  Box,
+  Paper,
+  Typography,
+  Rating,
+  useMediaQuery,
+  IconButton,
+} from "@mui/material";
 import { Place } from "../../shared/types/place-types";
-import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import useStyles from "./styles";
-
-interface IMarker extends Omit<Place, "longitude" | "latitude"> {
+import { Add, LocationOnOutlined } from "@mui/icons-material";
+import { useAppContext } from "../../store";
+import { setPlace } from "../../store/actions";
+export interface IMarker extends Omit<Place, "longitude" | "latitude"> {
   lng: number;
   lat: number;
 }
@@ -12,11 +20,15 @@ const defaultImage: string = process.env.REACT_APP_DEFAULT_IMAGE_URL as string;
 
 const Marker = (place: IMarker) => {
   const classes = useStyles();
-  const isDesktop = useMediaQuery("(min-width:600px");
+  const simpleView = useMediaQuery("(min-width:600px");
+  const { dispatch } = useAppContext();
+  const addPlace = () => {
+    dispatch(setPlace(place));
+  };
   return (
     <Box className={classes.markerContainer}>
-      {!isDesktop ? (
-        <LocationOnOutlinedIcon color="primary" fontSize="large" />
+      {!simpleView ? (
+        <LocationOnOutlined color="primary" fontSize="large" />
       ) : (
         <Paper elevation={3} className={classes.paper}>
           <Box>
@@ -35,6 +47,14 @@ const Marker = (place: IMarker) => {
             precision={0.5}
             readOnly
           />
+          <IconButton
+            aria-label="delete"
+            size="small"
+            sx={{ borderRadius: 0 }}
+            onClick={() => addPlace()}
+          >
+            <Add />
+          </IconButton>
         </Paper>
       )}
     </Box>

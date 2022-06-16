@@ -14,6 +14,8 @@ import PlaceDetails from "../PlaceDetails/PlaceDetails";
 import { Place } from "../../shared/types/place-types";
 import { SelectablePlaces, SelectableRating } from "../../App";
 import { SelectableRoutes } from "../Menu/Menu";
+import RoutesBuild from "./RoutesBuild/RoutesBuild";
+import PreMadeRoutes from "./PreMadeRoutes";
 
 interface IProps {
   places: Place[];
@@ -44,8 +46,8 @@ const DrawerContent = ({
     );
   }, [places]);
 
-  const routes: { [key in SelectableRoutes]: React.ReactNode } = {
-    content: (
+  const content: { [key in SelectableRoutes]: React.ReactNode } = {
+    establishments: (
       <Box>
         <Box className={classes.topBlock}>
           <Typography variant="h4" style={{ textTransform: "capitalize" }}>
@@ -82,8 +84,8 @@ const DrawerContent = ({
         </Grid>
       </Box>
     ),
-    "pre-made": <Box>pre-made</Box>,
-    build: <Box>build</Box>,
+    "pre-made": <PreMadeRoutes />,
+    build: <RoutesBuild />,
   };
 
   return (
@@ -93,7 +95,7 @@ const DrawerContent = ({
           <CircularProgress size="5rem" />
         </Box>
       ) : (
-        routes[contentType]
+        content[contentType]
       )}
     </Box>
   );

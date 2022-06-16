@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import DrawerContent from "../DrawerContent/DrawerContent";
 import { SelectablePlaces } from "../../App";
 
-export type SelectableRoutes = "content" | "pre-made" | "build";
+export type SelectableRoutes = "establishments" | "pre-made" | "build";
 
 const Menu = (props: any) => {
   const classes = useStyles();
@@ -16,7 +16,6 @@ const Menu = (props: any) => {
   const handleContentUpdate =
     (type: SelectablePlaces) =>
     (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-      console.log("before if");
       if (props.type === type) {
         setDrawerState(false);
         props.setType(undefined);
@@ -24,7 +23,7 @@ const Menu = (props: any) => {
       }
       setDrawerState(true);
       props.setType(type);
-      setDirectionsType("content");
+      setDirectionsType("establishments");
     };
 
   return (
