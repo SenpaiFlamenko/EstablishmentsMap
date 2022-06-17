@@ -15,6 +15,39 @@ interface IProps {
 }
 
 const mapAPI: string = process.env.REACT_APP_GOOGLE_MAPS_API_KEY as string;
+const defaultCenter = { lat: 48.621025, lng: 22.288229 };
+const directionsService = new google.maps.DirectionsService();
+const directionsRenderer = new google.maps.DirectionsRenderer({
+  preserveViewport: true,
+  suppressMarkers: true,
+});
+
+export const buildDirections = (route: any[]) => {
+  const routesConfig: google.maps.DirectionsRequest = {
+    origin: { lat: Number(route[0].lat), lng: Number(route[0].lng) },
+    destination: {
+      lat: Number(route[route.length - 1].lat),
+      lng: Number(route[route.length - 1].lng),
+    },
+    travelMode: google.maps.TravelMode.DRIVING,
+  };
+  if (route.length > 2) {
+    routesConfig.waypoints = [];
+    for (let i = 0; i < route.length; i++) {
+      if (!i && i + 1 === route.length) continue;
+      const { lng, lat } = route[i];
+      routesConfig.waypoints.push({
+        location: new google.maps.LatLng(+lat, +lng),
+      });
+    }
+  }
+
+  directionsService.route(routesConfig, (result, status) => {
+    if (status === google.maps.DirectionsStatus.OK && result) {
+      directionsRenderer.setDirections(result);
+    }
+  });
+};
 
 const Map = ({
   setCoordinates,
@@ -24,29 +57,11 @@ const Map = ({
   places,
 }: IProps) => {
   const classes = useStyles();
-  const defaultCenter = { lat: 48.621025, lng: 22.288229 };
 
   const apiIsLoaded = (map: any, maps: any) => {
-    // if (map) {
-    //   const directionsService = new google.maps.DirectionsService();
-    //   const directionsRenderer = new google.maps.DirectionsRenderer({
-    //     preserveViewport: true,
-    //     suppressMarkers: true,
-    //   });
-    //   directionsRenderer.setMap(map);
-    //   directionsService.route(
-    //     {
-    //       origin: defaultCenter,
-    //       destination: { lat: 48.63091363023963, lng: 22.322595240464853 },
-    //       travelMode: google.maps.TravelMode.DRIVING,
-    //     },
-    //     (result, status) => {
-    //       if (status === google.maps.DirectionsStatus.OK && result) {
-    //         directionsRenderer.setDirections(result);
-    //       }
-    //     }
-    //   );
-    // }
+    if (map) {
+      directionsRenderer.setMap(map);
+    }
   };
 
   return (

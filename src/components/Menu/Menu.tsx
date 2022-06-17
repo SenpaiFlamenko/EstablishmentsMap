@@ -4,6 +4,8 @@ import useStyles from "./styles";
 import React, { useState } from "react";
 import DrawerContent from "../DrawerContent/DrawerContent";
 import { SelectablePlaces } from "../../App";
+import { useAppContext } from "../../store";
+import { showAddButton } from "../../store/actions";
 
 export type SelectableRoutes = "establishments" | "pre-made" | "build";
 
@@ -11,6 +13,9 @@ const Menu = (props: any) => {
   const classes = useStyles();
   const [drawerState, setDrawerState] = useState<boolean>(false);
   const [directionsType, setDirectionsType] = useState<SelectableRoutes>();
+
+  const { dispatch } = useAppContext();
+
   const iconSize = 38;
   const bTopBotPadding = 1.5;
   const handleContentUpdate =
@@ -22,6 +27,7 @@ const Menu = (props: any) => {
         return;
       }
       setDrawerState(true);
+      dispatch(showAddButton(true));
       props.setType(type);
       setDirectionsType("establishments");
     };
@@ -67,9 +73,9 @@ const Menu = (props: any) => {
           <Button
             sx={{ padding: `${bTopBotPadding}vh` }}
             onClick={() => {
-              setDirectionsType("pre-made");
+              setDirectionsType("build");
               props.setType(undefined);
-              if (directionsType === "pre-made") {
+              if (directionsType === "build") {
                 setDrawerState(false);
                 setDirectionsType(undefined);
                 return;
@@ -82,9 +88,9 @@ const Menu = (props: any) => {
           <Button
             sx={{ padding: `${bTopBotPadding}vh` }}
             onClick={() => {
-              setDirectionsType("build");
+              setDirectionsType("pre-made");
               props.setType(undefined);
-              if (directionsType === "build") {
+              if (directionsType === "pre-made") {
                 setDrawerState(false);
                 setDirectionsType(undefined);
                 return;

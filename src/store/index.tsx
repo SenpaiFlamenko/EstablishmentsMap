@@ -4,6 +4,7 @@ import { AppStateContext, IAppContext } from "./types";
 
 export const initialState: AppStateContext = {
   places: [],
+  showAddButton: true,
 };
 
 export const AppContext = createContext<IAppContext>({

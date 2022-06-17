@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { CssBaseline, Grid } from "@mui/material";
 import Header from "./components/Header/Header";
 import Map from "./components/Map/Map";
@@ -30,8 +30,17 @@ const App = () => {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const [type, setType] = useState<SelectablePlaces>();
+  const [type, setType] = useState<SelectablePlaces>("hotels");
   const [rating, setRating] = useState<SelectableRating>(0);
+
+  const getPlaces = useCallback(
+    ({ ne, sw }: IBounds) =>
+      getPlacesData(ne, sw, type).then((data) => {
+        setPlaces(data);
+        setIsLoading(false);
+      }),
+    [type]
+  );
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -44,13 +53,8 @@ const App = () => {
   useEffect(() => {
     setIsLoading(true);
     if (!bounds) return;
-    const { ne, sw } = bounds;
-
-    getPlacesData(ne, sw, type).then((data) => {
-      setPlaces(data);
-      setIsLoading(false);
-    });
-  }, [bounds, type]);
+    if (type) getPlaces(bounds);
+  }, [bounds, type, getPlaces]);
 
   useEffect(() => {
     coordinates &&
@@ -60,8 +64,10 @@ const App = () => {
   }, [coordinates]);
 
   useEffect(() => {
-    const filteredPlaces = places.filter((place) => place.rating >= rating);
-    setFilteredPlaces(filteredPlaces);
+    if (places) {
+      const filteredPlaces = places.filter((place) => place.rating >= rating);
+      setFilteredPlaces(filteredPlaces);
+    }
   }, [rating, places]);
 
   return (
@@ -78,6 +84,7 @@ const App = () => {
             setType={setType}
             rating={rating}
             setRating={setRating}
+            setPlaces={setPlaces}
           />
         </Grid>
         <Grid item xs={12} md={11.6}>

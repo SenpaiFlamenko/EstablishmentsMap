@@ -3,6 +3,7 @@ import { IMarker } from "../components/Map/Marker";
 
 export interface AppStateContext {
   places: IMarker[];
+  showAddButton: boolean;
 }
 
 export interface IAppContext {
@@ -12,6 +13,8 @@ export interface IAppContext {
 
 export enum AppActionEnums {
   SET_PLACE = "SET_PLACE",
+  REMOVE_PLACE = "REMOVE_PLACE",
+  SHOW_ADD_BUTTON = "SHOW_ADD_BUTTON",
 }
 
 interface SetPlace {
@@ -19,4 +22,14 @@ interface SetPlace {
   payload: IMarker;
 }
 
-export type AppActions = SetPlace;
+interface RemovePlace {
+  type: AppActionEnums.REMOVE_PLACE;
+  payload: IMarker;
+}
+
+interface ShowAddButton {
+  type: AppActionEnums.SHOW_ADD_BUTTON;
+  payload: boolean;
+}
+
+export type AppActions = SetPlace | RemovePlace | ShowAddButton;

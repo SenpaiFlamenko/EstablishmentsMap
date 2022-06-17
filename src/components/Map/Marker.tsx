@@ -21,7 +21,10 @@ const defaultImage: string = process.env.REACT_APP_DEFAULT_IMAGE_URL as string;
 const Marker = (place: IMarker) => {
   const classes = useStyles();
   const simpleView = useMediaQuery("(min-width:600px");
-  const { dispatch } = useAppContext();
+  const {
+    dispatch,
+    state: { showAddButton },
+  } = useAppContext();
   const addPlace = () => {
     dispatch(setPlace(place));
   };
@@ -47,14 +50,16 @@ const Marker = (place: IMarker) => {
             precision={0.5}
             readOnly
           />
-          <IconButton
-            aria-label="delete"
-            size="small"
-            sx={{ borderRadius: 0 }}
-            onClick={() => addPlace()}
-          >
-            <Add />
-          </IconButton>
+          {showAddButton && (
+            <IconButton
+              aria-label="delete"
+              size="small"
+              sx={{ borderRadius: 0 }}
+              onClick={() => addPlace()}
+            >
+              <Add />
+            </IconButton>
+          )}
         </Paper>
       )}
     </Box>

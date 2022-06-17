@@ -71,3 +71,19 @@ export function readData() {
     };
   });
 }
+
+export function removeData(name: string) {
+  const transaction = db.transaction(["place"], "readwrite");
+  const objectStore = transaction.objectStore("place");
+
+  const myIndex = objectStore.index("name");
+
+  const request = myIndex.get(name);
+
+  request.onsuccess = function () {
+    const deleteRequest = objectStore.delete(request.result.id);
+    deleteRequest.onsuccess = function () {
+      console.log("Item deleted!");
+    };
+  };
+}

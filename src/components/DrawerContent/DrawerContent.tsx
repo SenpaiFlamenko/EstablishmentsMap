@@ -24,6 +24,7 @@ interface IProps {
   type: SelectablePlaces;
   rating: SelectableRating;
   setRating: React.Dispatch<React.SetStateAction<SelectableRating>>;
+  setPlaces: React.Dispatch<React.SetStateAction<any[]>>;
   contentType: SelectableRoutes;
 }
 
@@ -35,6 +36,7 @@ const DrawerContent = ({
   rating,
   setRating,
   contentType,
+  setPlaces,
 }: IProps) => {
   const classes = useStyles();
   const [elRefs, setElRefs] = useState([]);
@@ -84,13 +86,13 @@ const DrawerContent = ({
         </Grid>
       </Box>
     ),
-    "pre-made": <PreMadeRoutes />,
     build: <RoutesBuild />,
+    "pre-made": <PreMadeRoutes setPlaces={setPlaces} />,
   };
 
   return (
     <Box className={classes.container}>
-      {isLoading ? (
+      {isLoading && contentType === "establishments" ? (
         <Box className={classes.loading}>
           <CircularProgress size="5rem" />
         </Box>

@@ -6,4 +6,14 @@ const setPlace = (payload: IMarker): AppActions => ({
   payload,
 });
 
-export { setPlace };
+const removePlace = (payload: IMarker): AppActions => ({
+  type: AppActionEnums.REMOVE_PLACE,
+  payload,
+});
+
+const showAddButton = (payload: boolean): AppActions => ({
+  type: AppActionEnums.SHOW_ADD_BUTTON,
+  payload,
+});
+
+export { setPlace, removePlace, showAddButton };

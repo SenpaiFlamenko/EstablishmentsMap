@@ -1,29 +1,30 @@
 import {
-  Box,
   CardMedia,
-  CardContent,
-  Typography,
   List,
-  Collapse,
   ListItem,
   ListItemButton,
   Button,
   Dialog,
   DialogActions,
   DialogContent,
-  DialogContentText,
   DialogTitle,
   TextField,
   Alert,
+  Card,
+  CardHeader,
+  IconButton,
 } from "@mui/material";
+import ClearIcon from "@mui/icons-material/Clear";
 import React, { useState } from "react";
 import { useAppContext } from "../../../store";
 import { addData } from "../../db";
+import { removePlace } from "../../../store/actions";
 
 const defaultImage: string = process.env.REACT_APP_DEFAULT_IMAGE_URL as string;
 
 function RoutesBuild() {
   const {
+    dispatch,
     state: { places },
   } = useAppContext();
 
@@ -51,23 +52,30 @@ function RoutesBuild() {
     handleClose();
   };
   return (
-    // <Collapse in={open} timeout="auto" unmountOnExit>
     <>
       <List style={{ overflowY: "auto", height: "100%" }}>
-        {places.map(({ photo, name }) => (
-          <Box>
+        {places.map(({ photo, name, ...place }) => (
+          <Card>
+            <CardHeader
+              action={
+                <IconButton
+                  aria-label="settings"
+                  onClick={() =>
+                    dispatch(removePlace({ ...place, photo, name }))
+                  }
+                >
+                  <ClearIcon />
+                </IconButton>
+              }
+              title={name}
+            />
             <CardMedia
               style={{ height: 350 }}
               image={photo ? photo.images.large.url : defaultImage}
               title={name}
               component="img"
             />
-            <CardContent>
-              <Typography gutterBottom variant="h5">
-                {name}
-              </Typography>
-            </CardContent>
-          </Box>
+          </Card>
         ))}
         <ListItem>
           <ListItemButton onClick={handleClickOpen}>Save</ListItemButton>
@@ -93,7 +101,6 @@ function RoutesBuild() {
         </DialogActions>
       </Dialog>
     </>
-    // </Collapse>
   );
 }
 
