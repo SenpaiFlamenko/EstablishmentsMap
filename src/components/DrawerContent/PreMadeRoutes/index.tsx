@@ -7,6 +7,7 @@ import {
   Box,
   IconButton,
   CardHeader,
+  Grid,
 } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
 import React, {
@@ -47,55 +48,72 @@ const PreMadeRoutes: FunctionComponent<IProps> = (props) => {
   };
 
   return (
-    <Box style={{ overflowY: "auto", height: "100%" }}>
-      {routePlaces?.map(
-        (route: any, i: number) =>
-          route.name && (
-            <Card sx={{ maxWidth: 345 }} key={i}>
-              <CardHeader
-                action={
-                  <IconButton
-                    aria-label="settings"
-                    onClick={() => {
-                      removeData(route.name);
-                      setRoutePlaces((prev: any) =>
-                        prev.filter((r: any) => r.name !== route.name)
-                      );
-                    }}
-                  >
-                    <ClearIcon />
-                  </IconButton>
-                }
-                // title={name}
-              />
-              <CardMedia
-                component="img"
-                style={{ height: 350 }}
-                image={
-                  route.places[0].photo.images.large.url
-                    ? route.places[0].photo.images.large.url
-                    : defaultImage
-                }
-                alt={route.places[0].name}
-              />
-
-              <CardContent>
-                <Typography gutterBottom variant="h5">
-                  {`Route from ${route.places[0].name} to 
-                  ${route.places[route.places.length - 1].name}`}
-                </Typography>
-                <Button
-                  onClick={() => {
-                    buildRoute(route.places);
-                    setPlaces(route.places);
-                  }}
+    <Box
+      style={{
+        overflowY: "auto",
+        height: "100%",
+        paddingLeft: "1vw",
+        paddingRight: "1vw",
+      }}
+    >
+      <Typography variant="h4" style={{ paddingBottom: "1vh" }}>
+        Created routes
+      </Typography>
+      <Grid container spacing={3}>
+        {routePlaces?.map(
+          (route: any, i: number) =>
+            route.name && (
+              <Grid item key={i} xs={12}>
+                <Card
+                  elevation={6}
+                  style={{ paddingBottom: "1vh", width: "100%" }}
                 >
-                  Build route
-                </Button>
-              </CardContent>
-            </Card>
-          )
-      )}
+                  <CardHeader
+                    action={
+                      <IconButton
+                        aria-label="settings"
+                        onClick={() => {
+                          removeData(route.name);
+                          setRoutePlaces((prev: any) =>
+                            prev.filter((r: any) => r.name !== route.name)
+                          );
+                        }}
+                      >
+                        <ClearIcon />
+                      </IconButton>
+                    }
+                    title={route.name}
+                  />
+                  <CardMedia
+                    component="img"
+                    style={{ height: 350 }}
+                    image={
+                      route.places[0].photo.images.large.url
+                        ? route.places[0].photo.images.large.url
+                        : defaultImage
+                    }
+                    alt={route.places[0].name}
+                  />
+
+                  <CardContent>
+                    <Typography gutterBottom variant="h5">
+                      {`Route from ${route.places[0].name} to 
+                  ${route.places[route.places.length - 1].name}`}
+                    </Typography>
+                    <Button
+                      onClick={() => {
+                        buildRoute(route.places);
+                        setPlaces(route.places);
+                      }}
+                    >
+                      Build route
+                    </Button>
+                  </CardContent>
+                </Card>
+              </Grid>
+            )
+        )}
+      </Grid>
     </Box>
   );
 };

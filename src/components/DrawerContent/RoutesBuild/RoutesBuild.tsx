@@ -13,6 +13,8 @@ import {
   Card,
   CardHeader,
   IconButton,
+  Grid,
+  Typography,
 } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
 import React, { useState } from "react";
@@ -42,9 +44,9 @@ function RoutesBuild() {
       <Alert severity="warning">Can't create route without name!</Alert>;
       return;
     }
-    if (places.length < 2) {
+    if (places.length < 2 || places.length >= 10) {
       <Alert severity="error">
-        Can't create route with less than 2 points!
+        Can't create route with less than 2 or more than 10 points!
       </Alert>;
       return;
     }
@@ -53,30 +55,47 @@ function RoutesBuild() {
   };
   return (
     <>
-      <List style={{ overflowY: "auto", height: "100%" }}>
-        {places.map(({ photo, name, ...place }) => (
-          <Card>
-            <CardHeader
-              action={
-                <IconButton
-                  aria-label="settings"
-                  onClick={() =>
-                    dispatch(removePlace({ ...place, photo, name }))
+      <List
+        style={{
+          overflowY: "auto",
+          height: "100%",
+          paddingLeft: "1vw",
+          paddingRight: "1vw",
+        }}
+      >
+        <Typography variant="h4" style={{ paddingBottom: "1vh" }}>
+          Routes creation
+        </Typography>
+        <Grid container spacing={3}>
+          {places.map(({ photo, name, ...place }) => (
+            <Grid item xs={12}>
+              <Card
+                elevation={6}
+                style={{ paddingBottom: "1vh", width: "100%" }}
+              >
+                <CardHeader
+                  action={
+                    <IconButton
+                      aria-label="settings"
+                      onClick={() =>
+                        dispatch(removePlace({ ...place, photo, name }))
+                      }
+                    >
+                      <ClearIcon />
+                    </IconButton>
                   }
-                >
-                  <ClearIcon />
-                </IconButton>
-              }
-              title={name}
-            />
-            <CardMedia
-              style={{ height: 350 }}
-              image={photo ? photo.images.large.url : defaultImage}
-              title={name}
-              component="img"
-            />
-          </Card>
-        ))}
+                  title={name}
+                />
+                <CardMedia
+                  style={{ height: 350 }}
+                  image={photo ? photo.images.large.url : defaultImage}
+                  title={name}
+                  component="img"
+                />
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
         <ListItem>
           <ListItemButton onClick={handleClickOpen}>Save</ListItemButton>
         </ListItem>

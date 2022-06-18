@@ -29,6 +29,7 @@ export const buildDirections = (route: any[]) => {
       lat: Number(route[route.length - 1].lat),
       lng: Number(route[route.length - 1].lng),
     },
+    optimizeWaypoints: true,
     travelMode: google.maps.TravelMode.DRIVING,
   };
   if (route.length > 2) {
